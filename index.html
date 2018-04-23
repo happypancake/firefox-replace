@@ -1,0 +1,29 @@
+<html>
+<head>
+  <title>ReplaceState test</title>
+  <script>
+  window.replaceTest = () => {
+    const url = '/redirected?key=value';
+    window.history.replaceState({ url, options: { shallow: true } }, null, url);
+  };
+  </script>
+</head>
+<body>
+  <h1>ReplaceState test</h1>
+  <h3>Broken behavior</h3>
+  <ul>
+    <li>Go to the <a href="/">root</a>, which will 302 redirect you back here</li>
+    <li>Click <button onclick="window.replaceTest()">this button</button> to replaceState with an url that has a query string</li>
+    <li>Refresh the page</li>
+    <li>In Firefox, the "?key=value" query string disappears</li>
+    <li>In other browsers, it does not</li>
+  </ul>
+  <h3>Expected behavior</h3>
+  <ul>
+    <li>Go directly to the <a href="/redirected">redirected URL</a>, skipping the 302 redirect entirely</li>
+    <li>Click <button onclick="window.replaceTest()">this button</button> to replaceState with an url that has a query string</li>
+    <li>Refresh the page</li>
+    <li>The "?key=value" query string remains in all browsers</li>
+  </ul>
+</body>
+</html>
